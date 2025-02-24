@@ -1,0 +1,21 @@
+[project]
+name = "trowel-core"
+version = "0.0.0"
+description = ""
+authors = [
+    {name = "Letícia Aguiar",email = "letsaguiar@yandex.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+]
+
+[tool.poetry]
+packages = [{include = "trowel_core", from = "src"}]
+[tool.poetry.scripts]
+main = "trowel_core:main"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
