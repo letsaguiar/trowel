@@ -8,13 +8,14 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pydantic (>=2.10.6,<3.0.0)"
+    "pydantic (>=2.10.6,<3.0.0)",
+    "click (>=8.1.8,<9.0.0)"
 ]
 
 [tool.poetry]
 packages = [{include = "trowel_core", from = "src"}]
 [tool.poetry.scripts]
-main = "trowel_core:main"
+cli = "trowel_core:cli"
 
 
 [build-system]

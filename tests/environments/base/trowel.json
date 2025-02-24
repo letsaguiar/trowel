@@ -1,0 +1,6 @@
+{
+    "name": "environment-base",
+    "sources": [
+        "main.c"
+    ]
+}
