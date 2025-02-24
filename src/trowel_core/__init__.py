@@ -1,1 +1,2 @@
-from .main import *
+def main():
+    print("Hello, again!")
