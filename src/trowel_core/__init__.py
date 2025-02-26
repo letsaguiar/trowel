@@ -4,6 +4,8 @@ import json
 import os
 import jinja2.tests
 import pydantic
+import subprocess
+import tempfile
 
 TROWEL_PATH = os.getenv('TROWEL_PATH')
 TROWEL_SRC = f"{TROWEL_PATH}/src/trowel_core"
@@ -22,9 +24,13 @@ class ConfigParser:
 class ConfigParserJson:
     @staticmethod
     def parse(path: str):
-        with open(path) as file:
-            data = json.loads(file.read())
-        return (data)
+        try:
+            with open(path) as file:
+                data = json.loads(file.read())
+            return (data)
+        except FileNotFoundError:
+            click.echo("Error: trowel config not found.", err=True)
+            raise click.Abort()
 
 class ConfigService:
     def __init__(self, parser: ConfigParser):
@@ -55,6 +61,31 @@ class TemplateService:
     def build(self, config: ConfigModel):
         return self._builder.build(config)
 
+class BuilderStrategy:
+    @staticmethod
+    def build(template: str):
+        raise Exception("Method not implemented.")
+
+class BuilderStrategyMake:
+    @staticmethod
+    def build(template: str):
+        with tempfile.NamedTemporaryFile(mode="w", delete=True) as temp:
+            temp.write(template)
+            temp.flush()
+
+            try:
+                result = subprocess.run(['make', '-f', temp.name], check=True)
+                print("Build successful")
+            except subprocess.CalledProcessError as e:
+                print(f"Build error: {e}")
+
+class BuilderService:
+    def __init__(self, strategy: BuilderStrategy):
+        self._strategy = strategy
+
+    def run(self, template: str):
+        return self._strategy.build(template)
+
 @click.group()
 def cli():
     """Trowel is a C builder and project management tool designed for simplicity and automation"""
@@ -65,8 +96,8 @@ def cli():
 def build(path: str):
     config_service = ConfigService(ConfigParserJson)
     template_service = TemplateService(TemplateBuilderMake)
+    builder_service = BuilderService(BuilderStrategyMake)
 
     config = config_service.getConfig(path)
     template = template_service.build(config)
-
-    print(template)
+    builder_service.run(template)
