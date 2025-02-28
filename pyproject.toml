@@ -16,7 +16,7 @@ dependencies = [
 [tool.poetry]
 packages = [{include = "trowel_core", from = "src"}]
 [tool.poetry.scripts]
-cli = "trowel_core:cli"
+cli = "trowel_core.cli:main"
 
 
 [build-system]
