@@ -6,36 +6,11 @@ import jinja2.tests
 import subprocess
 import tempfile
 
-from trowel_core.config.models import ConfigModel
 from trowel_core.config.parsers import ConfigParserJson
 from trowel_core.config.services import ConfigService
-
-TROWEL_PATH = os.getenv('TROWEL_PATH')
-TROWEL_SRC = f"{TROWEL_PATH}/src"
-TROWEL_RESOURCES = f"{TROWEL_SRC}/resources"
-TROWEL_TEMPLATES = f"{TROWEL_RESOURCES}/templates"
+from trowel_core.template.builders import TemplateBuilderMake
+from trowel_core.template.services import TemplateService
         
-class TemplateBuilder:
-    @staticmethod
-    def build(config: ConfigModel):
-        raise Exception("Method not implemented.")
-        
-class TemplateBuilderMake:
-    @staticmethod
-    def build(config: ConfigModel):
-        with open(f"{TROWEL_TEMPLATES}/Makefile") as file:
-            template = jinja2.Template(file.read())
-            output = template.render(config)
-
-        return output
-        
-class TemplateService:
-    def __init__(self, builder: TemplateBuilder):
-        self._builder = builder
-
-    def build(self, config: ConfigModel):
-        return self._builder.build(config)
-
 class BuilderStrategy:
     @staticmethod
     def build(template: str):
