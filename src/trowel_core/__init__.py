@@ -7,27 +7,15 @@ import subprocess
 import tempfile
 
 from .config.models import ConfigModel
+from .config.parsers import (
+    ConfigParser,
+    ConfigParserJson
+)
 
 TROWEL_PATH = os.getenv('TROWEL_PATH')
 TROWEL_SRC = f"{TROWEL_PATH}/src"
 TROWEL_RESOURCES = f"{TROWEL_SRC}/resources"
 TROWEL_TEMPLATES = f"{TROWEL_RESOURCES}/templates"
-
-class ConfigParser:
-    @staticmethod
-    def parse(path: str):
-        raise Exception("Method not implemented.")
-
-class ConfigParserJson:
-    @staticmethod
-    def parse(path: str):
-        try:
-            with open(path) as file:
-                data = json.loads(file.read())
-            return (data)
-        except FileNotFoundError:
-            click.echo("Error: trowel config not found.", err=True)
-            raise click.Abort()
 
 class ConfigService:
     def __init__(self, parser: ConfigParser):
