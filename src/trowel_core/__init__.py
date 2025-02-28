@@ -6,24 +6,14 @@ import jinja2.tests
 import subprocess
 import tempfile
 
-from .config.models import ConfigModel
-from .config.parsers import (
-    ConfigParser,
-    ConfigParserJson
-)
+from trowel_core.config.models import ConfigModel
+from trowel_core.config.parsers import ConfigParserJson
+from trowel_core.config.services import ConfigService
 
 TROWEL_PATH = os.getenv('TROWEL_PATH')
 TROWEL_SRC = f"{TROWEL_PATH}/src"
 TROWEL_RESOURCES = f"{TROWEL_SRC}/resources"
 TROWEL_TEMPLATES = f"{TROWEL_RESOURCES}/templates"
-
-class ConfigService:
-    def __init__(self, parser: ConfigParser):
-        self._parser = parser
-
-    def getConfig(self, path: str):
-        data = self._parser.parse(path)
-        return ConfigModel(**data)
         
 class TemplateBuilder:
     @staticmethod
