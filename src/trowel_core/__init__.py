@@ -3,18 +3,15 @@ import jinja2
 import json
 import os
 import jinja2.tests
-import pydantic
 import subprocess
 import tempfile
+
+from .config.models import ConfigModel
 
 TROWEL_PATH = os.getenv('TROWEL_PATH')
 TROWEL_SRC = f"{TROWEL_PATH}/src"
 TROWEL_RESOURCES = f"{TROWEL_SRC}/resources"
 TROWEL_TEMPLATES = f"{TROWEL_RESOURCES}/templates"
-
-class ConfigModel(pydantic.BaseModel):
-    name: str
-    sources: list[str] = pydantic.Field(min_length=1)
 
 class ConfigParser:
     @staticmethod
