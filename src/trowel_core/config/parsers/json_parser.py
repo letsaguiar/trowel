@@ -3,7 +3,7 @@ import json
 
 class ConfigParserJson:
     @staticmethod
-    def parse(path: str):
+    def parse(path: str) -> dict:
         try:
             with open(path) as file:
                 data = json.loads(file.read())
