@@ -5,6 +5,6 @@ class ConfigService:
     def __init__(self, parser: ConfigParser):
         self._parser = parser
 
-    def getConfig(self, path: str):
+    def getConfig(self, path: str) -> ConfigModel:
         data = self._parser.parse(path)
         return ConfigModel(**data)

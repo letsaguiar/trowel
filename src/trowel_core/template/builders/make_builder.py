@@ -4,7 +4,7 @@ from trowel_core.setup import TROWEL_TEMPLATES
 
 class TemplateBuilderMake:
     @staticmethod
-    def build(config: ConfigModel):
+    def build(config: ConfigModel) -> str:
         with open(f"{TROWEL_TEMPLATES}/Makefile") as file:
             template = jinja2.Template(file.read())
             output = template.render(config)
