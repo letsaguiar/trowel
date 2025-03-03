@@ -1,5 +1,6 @@
-import tempfile
+import click
 import subprocess
+import tempfile
 
 class BuilderStrategyMake:
     @staticmethod
@@ -13,3 +14,4 @@ class BuilderStrategyMake:
                 print("Build successful")
             except subprocess.CalledProcessError as e:
                 print(f"Build error: {e}")
+                raise click.Abort()
