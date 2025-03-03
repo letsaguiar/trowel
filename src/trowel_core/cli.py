@@ -22,3 +22,6 @@ def build(path: str):
     config = config_service.getConfig(path)
     template = template_service.build(config)
     builder_service.run(template)
+
+if __name__ == "__main__":
+	main()

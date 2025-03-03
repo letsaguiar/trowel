@@ -1,4 +1,5 @@
 from enum import Enum
 
 class Projects(Enum):
-	BASE_CONFIGURATION = "base_configuration"
+	VALID_BASE = "valid_base"
+	INVALID_UNDEFINED_NAME = "invalid_undefined_name"
