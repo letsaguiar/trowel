@@ -13,4 +13,4 @@ class ConfigService:
             return ConfigModel(**data)
         except Exception as err:
             click.echo("Error: Invalid Configuration. {err}")
-            raise click.Abort(1)
+            raise click.Abort()
