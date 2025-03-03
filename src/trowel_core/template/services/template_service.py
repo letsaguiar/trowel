@@ -5,5 +5,5 @@ class TemplateService:
     def __init__(self, builder: TemplateBuilder):
         self._builder = builder
 
-    def build(self, config: ConfigModel):
+    def build(self, config: ConfigModel) -> str:
         return self._builder.build(config)

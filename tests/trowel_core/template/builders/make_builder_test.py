@@ -16,7 +16,7 @@ def make_builder():
 
 
 class TestTemplateBuilderMake:
-    def test_build_should_raise_exception(
+    def test_build_should_return_a_valid_output(
         self, config_model: ConfigModel, make_builder: TemplateBuilderMake
     ):
         expected_output = """CC := gcc
