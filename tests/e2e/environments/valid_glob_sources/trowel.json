@@ -1,0 +1,6 @@
+{
+	"name": "glob-sources",
+	"sources": [
+		"*.c"
+	]
+}
