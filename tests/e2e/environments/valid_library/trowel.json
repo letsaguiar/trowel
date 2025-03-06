@@ -1,0 +1,7 @@
+{
+	"name": "valid-library",
+	"sources": [
+		"main.c"
+	],
+	"type": "library"
+}

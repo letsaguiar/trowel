@@ -6,7 +6,11 @@ class TemplateBuilderMake:
     @staticmethod
     def build(config: ConfigModel) -> str:
         with open(f"{TROWEL_TEMPLATES}/Makefile") as file:
-            template = jinja2.Template(file.read())
+            template = jinja2.Template(
+                file.read(),
+                trim_blocks=True,
+                lstrip_blocks=True
+            )
             output = template.render(config)
 
         return output

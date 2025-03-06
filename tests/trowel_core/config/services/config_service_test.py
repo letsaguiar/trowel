@@ -20,7 +20,7 @@ class TestConfigService:
         test_file.write_text(json.dumps(test_data))
 
         test_model = ConfigModel(name="test", sources=["main.c"])
-        assert config_service.getConfig(test_file).__dict__ == test_model.__dict__
+        assert config_service.getConfig(test_file).model_dump() == test_model.model_dump()
         
     def test_should_throw_when_data_has_no_name(
         self, config_service: ConfigService, tmp_path: pathlib.PosixPath
@@ -93,5 +93,35 @@ class TestConfigService:
             glob_file = tmp_path / f"main{i}.c"
             glob_file.touch()
         
+        with pytest.raises(Exception):
+            config_service.getConfig(test_file)
+    
+    def test_should_not_raise_error_when_type_is_executable(
+        self, config_service: ConfigService, tmp_path: pathlib.PosixPath
+    ):
+        test_data = { "name": "test", "sources": ["main.c"], "type": "executable" }
+        test_file = tmp_path / "trowel.json"
+        test_file.write_text(json.dumps(test_data))
+
+        test_model = ConfigModel(name="test", sources=["main.c"], type="executable")
+        assert config_service.getConfig(test_file).model_dump() == test_model.model_dump()
+
+    def test_should_not_raise_error_when_type_is_library(
+        self, config_service: ConfigService, tmp_path: pathlib.PosixPath
+    ):
+        test_data = { "name": "test", "sources": ["main.c"], "type": "library" }
+        test_file = tmp_path / "trowel.json"
+        test_file.write_text(json.dumps(test_data))
+
+        test_model = ConfigModel(name="test", sources=["main.c"], type="library")
+        assert config_service.getConfig(test_file).model_dump() == test_model.model_dump()
+
+    def test_should__raise_error_when_type_is_invalid(
+        self, config_service: ConfigService, tmp_path: pathlib.PosixPath
+    ):
+        test_data = { "name": "test", "sources": ["main.c"], "type": "foo" }
+        test_file = tmp_path / "trowel.json"
+        test_file.write_text(json.dumps(test_data))
+
         with pytest.raises(Exception):
             config_service.getConfig(test_file)
