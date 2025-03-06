@@ -1,4 +1,4 @@
-import click
+import glob
 
 from trowel_core.config.models import ConfigModel
 from trowel_core.config.parsers import ConfigParser
@@ -26,9 +26,27 @@ class ConfigService:
         except Exception as e:
             return None, ConfigException("Unable to create config model", e)
 
+    def _step_expand_sources(self, data: ConfigModel, err: Exception) -> tuple[ConfigModel, Exception]:
+        if (err):
+            return None, err
+        
+        try:
+            sources = set()
+            for source in data.sources:
+                if not any(c in source for c in ['*', '?', '[', ']', '{', '}']):
+                    sources.add(source)
+                else:
+                    sources.update(list[glob.glob(source)])
+
+            data.sources = list(map(str, sources))
+            return data, None
+        except Exception as e:
+            return None, ConfigException("Unable to expand glob sources", e)
+
     def getConfig(self, path: str) -> ConfigModel:
         data, err = self._step_get_raw_data(path, None)
         data, err = self._step_parse_raw_data(data, err)
+        data, err = self._step_expand_sources(data, err)
 
         if (err):
             raise err
