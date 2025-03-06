@@ -13,8 +13,8 @@ NAME := {{ name + '.a' }}
 
 all: $(NAME)
 
-{% if type == "executable" %}
 $(NAME): $(OBJ_FILES)
+{% if type == "executable" %}
 	$(CC) $^ -o $@
 {% elif type == "library" %}
 	ar rcs $@ $^
