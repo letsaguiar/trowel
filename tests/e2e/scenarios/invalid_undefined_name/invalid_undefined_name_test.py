@@ -1,7 +1,5 @@
 import pathlib
 
-from src.trowel_core.setup import TROWEL_SRC
-
 from tests.e2e.utils.project_build import project_build
 from tests.e2e.utils.projects import Projects
 
