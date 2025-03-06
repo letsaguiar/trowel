@@ -36,10 +36,15 @@ class ConfigService:
                 if not any(c in source for c in ['*', '?', '[', ']', '{', '}']):
                     sources.add(source)
                 else:
-                    sources.update(list[glob.glob(source)])
+                    sources.update(glob.glob(source))
 
-            data.sources = list(map(str, sources))
-            return data, None
+            sources = list(map(str, sources))
+            sources.sort()
+
+            data_dict = data.model_dump()
+            data_dict['sources'] = sources
+
+            return ConfigModel(**data_dict), None
         except Exception as e:
             return None, ConfigException("Unable to expand glob sources", e)
 
