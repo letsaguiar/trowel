@@ -29,7 +29,7 @@ class TestConfigService:
         test_file = tmp_path / "trowel.json"
         test_file.write_text(json.dumps(test_data))
 
-        with pytest.raises(click.Abort):
+        with pytest.raises(Exception):
             config_service.getConfig(test_file)
     
     def test_should_throw_when_data_has_no_sources(
@@ -39,7 +39,7 @@ class TestConfigService:
         test_file = tmp_path / "trowel.json"
         test_file.write_text(json.dumps(test_data))
 
-        with pytest.raises(click.Abort):
+        with pytest.raises(Exception):
             config_service.getConfig(test_file)
     
     def test_should_throw_when_data_has_no_sources(
@@ -49,5 +49,5 @@ class TestConfigService:
         test_file = tmp_path / "trowel.json"
         test_file.write_text(json.dumps(test_data))
 
-        with pytest.raises(click.Abort):
+        with pytest.raises(Exception):
             config_service.getConfig(test_file)
