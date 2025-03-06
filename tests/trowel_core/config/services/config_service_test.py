@@ -20,7 +20,7 @@ class TestConfigService:
         test_file.write_text(json.dumps(test_data))
 
         test_model = ConfigModel(name="test", sources=["main.c"])
-        assert config_service.getConfig(test_file).__dict__ == test_model.__dict__
+        assert config_service.getConfig(test_file).model_dump() == test_model.model_dump()
         
     def test_should_throw_when_data_has_no_name(
         self, config_service: ConfigService, tmp_path: pathlib.PosixPath
