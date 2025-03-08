@@ -1,4 +1,4 @@
 import importlib.resources
 
-TROWEL_SRC = importlib.resources.files("trowel_core")
-TROWEL_TEMPLATES = TROWEL_SRC.joinpath("resources/templates")
+TROWEL_SRC_DIR = importlib.resources.files("trowel_core")
+TROWEL_TEMPLATES_DIR = TROWEL_SRC_DIR.joinpath("resources/templates")
