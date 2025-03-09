@@ -14,7 +14,7 @@ class ConfigService:
     def _step_get_raw_data(self, path: str, err: Exception) -> tuple[dict, Exception]:
         if (err):
             return None, err
-        self._logger.debug("Running step: get_raw_data")
+        self._logger.debug("Starting step: get_raw_data")
 
         try:
             data = self._parser.parse(path), None
@@ -26,7 +26,7 @@ class ConfigService:
     def _step_parse_raw_data(self, raw_data: dict, err: Exception) -> tuple[ConfigModel, Exception]:
         if (err):
             return None, err
-        self._logger.debug("Running step: parse_raw_data")
+        self._logger.debug("Starting step: parse_raw_data")
 
         try:
             model = ConfigModel(**raw_data)
@@ -38,7 +38,7 @@ class ConfigService:
     def _step_expand_sources(self, data: ConfigModel, err: Exception) -> tuple[ConfigModel, Exception]:
         if (err):
             return None, err
-        self._logger.debug("Running step: expand_sources")
+        self._logger.debug("Starting step: expand_sources")
         
         try:
             sources = set()
