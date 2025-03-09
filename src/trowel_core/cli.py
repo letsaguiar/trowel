@@ -6,6 +6,7 @@ from trowel_core.template.builders import TemplateBuilderMake
 from trowel_core.template.services import TemplateService
 from trowel_core.builder.strategies import BuilderStrategyMake
 from trowel_core.builder.services import BuilderService
+from trowel_core.logger import Logger
 
 @click.group()
 def main():
@@ -15,6 +16,9 @@ def main():
 @main.command()
 @click.option("--path", default="./trowel.json", help="Path to your trowel config file")
 def build(path: str):
+    logger = Logger().getLogger()
+    logger.info("Starting building process")
+
     config_service = ConfigService(ConfigParserJson)
     template_service = TemplateService(TemplateBuilderMake)
     builder_service = BuilderService(BuilderStrategyMake)
@@ -22,6 +26,8 @@ def build(path: str):
     config = config_service.getConfig(path)
     template = template_service.build(config)
     builder_service.run(template)
+
+    logger.info("Finishing building process")
 
 if __name__ == "__main__":
 	main()

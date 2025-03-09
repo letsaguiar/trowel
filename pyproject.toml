@@ -10,15 +10,15 @@ requires-python = ">=3.12"
 dependencies = [
     "pydantic (>=2.10.6,<3.0.0)",
     "click (>=8.1.8,<9.0.0)",
-    "jinja2 (>=3.1.5,<4.0.0)"
+    "jinja2 (>=3.1.5,<4.0.0)",
+    "python-json-logger (>=3.3.0,<4.0.0)"
 ]
 
 [tool.poetry]
 packages = [{include = "trowel_core", from = "src"}]
 
 [tool.poetry.scripts]
-cli = "trowel_core.cli:main"
-test = "pytest:main"
+trowel = "trowel_core.cli:main"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
