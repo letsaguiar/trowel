@@ -27,5 +27,7 @@ def build(path: str):
     template = template_service.build(config)
     builder_service.run(template)
 
+    logger.info("Finishing building process")
+
 if __name__ == "__main__":
 	main()
