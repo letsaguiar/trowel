@@ -10,18 +10,18 @@ class Logger:
 	_logger = logging.getLogger("trowel")
 
 	def __init__(self):
-		if not self._initialized:
+		if not Logger._initialized:
 			self._setupLogger()
 			self._setupStdoutHandler()
-			self._initialized = True
+			Logger._initialized = True
 
 	def _setupLogger(self):
-		self._logger.setLevel(TROWEL_DEBUG_LEVEL)
+		Logger._logger.setLevel(TROWEL_DEBUG_LEVEL)
 
 	def _setupStdoutHandler(self):
 		handler = logging.StreamHandler(sys.stdout)
 		handler.setFormatter(self._getFormatter())
-		self._logger.addHandler(handler)
+		Logger._logger.addHandler(handler)
 
 	def _getFormatter(self):
 		return pythonjsonlogger.jsonlogger.JsonFormatter(
@@ -30,4 +30,4 @@ class Logger:
 		)
 
 	def getLogger(self):
-		return self._logger
+		return Logger._logger
